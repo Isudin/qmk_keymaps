@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS, 
     KC_TRNS, KC_LGUI, LALT_T(KC_MINS), LCTL_T(KC_PLUS), LSFT_T(KC_EQL), KC_NO, KC_NO,   KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RGUI_T(KC_UNDS), KC_TRNS, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS,
-    KC_NO, KC_TRNS, KC_NO,                                                              KC_NO, LT(3,KC_0), KC_NO
+    KC_NO, KC_TRNS, KC_NO,                                                              KC_COMM, LT(3,KC_0), KC_DOT
   ),
   [2] = LAYOUT_split_3x6_3_ex2(
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
@@ -57,14 +57,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-        switch (keycode) {
-				case RSFT_T(KC_J):
-                case LSFT_T(KC_F): 
-                        return TAPPING_TERM - 100;
-				case LCTL_T(KC_D):
-				case LCTL_T(KC_K):
-						return TAPPING_TERM - 50;
-                default:
-                        return TAPPING_TERM;
-}}
+  switch (keycode) {
+    case RSFT_T(KC_J):
+    case LSFT_T(KC_F): 
+      return TAPPING_TERM - 100;
+    case LCTL_T(KC_D):
+    case LCTL_T(KC_K):
+      return TAPPING_TERM - 50;
+        default:
+          return TAPPING_TERM;
+  }
+}
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LCTL_T(KC_PLUS):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_PLUS);
+                return false;
+            }
+            return true;
+    }
+    return true;
+}
