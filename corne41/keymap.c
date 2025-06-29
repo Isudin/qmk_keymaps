@@ -17,6 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+#define LC_PLUS LCTL_T(KC_PLUS)
+#define RG_UNDS RGUI_T(KC_UNDS)
+//Left Home Row
+#define LG_LT LGUI_T(KC_LT)
+#define LA_LBRC LALT_T(KC_LBRC)
+#define LC_LPRN LCTL_T(KC_LPRN)
+#define LS_LCBR LSFT_T(KC_LCBR)
+//Right Home Row
+#define RS_RCBR RSFT_T(KC_RCBR)
+#define RC_RPRN RCTL_T(KC_RPRN)
+#define LA_RBRC LALT_T(KC_RBRC) //LALT is correct, no RALT in Home Row Mods
+#define RG_GT RGUI_T(KC_GT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3_ex2(
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, DT_PRNT,                                      DT_UP, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, 
@@ -26,13 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_split_3x6_3_ex2(
     KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, LALT_T(KC_MINS), LCTL_T(KC_PLUS), LSFT_T(KC_EQL), KC_NO, KC_NO,   KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RGUI_T(KC_UNDS), KC_TRNS, 
+    KC_TRNS, KC_LGUI, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RG_UNDS, KC_TRNS, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS,
     KC_NO, KC_TRNS, KC_NO,                                                              KC_COMM, LT(3,KC_0), KC_DOT
   ),
   [2] = LAYOUT_split_3x6_3_ex2(
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
-    KC_TRNS, KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, KC_NO, KC_NO,                            KC_NO, KC_NO, KC_RCBR, KC_RPRN, KC_RBRC, KC_GT, KC_PIPE, 
+    KC_TRNS, LG_LT, LA_LBRC, LC_LPRN, LS_LCBR, KC_NO, KC_NO,                            KC_NO, KC_NO, RS_RCBR, RC_RPRN, LA_RBRC, RG_GT, KC_PIPE, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLS, KC_TRNS, 
     KC_TRNS, MO(3), KC_TRNS,                                                            KC_TRNS, KC_TRNS, KC_TRNS
   ),
@@ -60,23 +73,56 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case RSFT_T(KC_J):
     case LSFT_T(KC_F): 
+    case RSFT_T(KC_4):
+    case LSFT_T(KC_EQL):
+    case LS_LCBR:
+    case RS_RCBR:
       return TAPPING_TERM - 100;
     case LCTL_T(KC_D):
-    case LCTL_T(KC_K):
+    case RCTL_T(KC_K):
+    case RCTL_T(KC_5):
+    case LC_PLUS:
+    case LC_LPRN:
+    case RC_RPRN:
       return TAPPING_TERM - 50;
         default:
           return TAPPING_TERM;
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LCTL_T(KC_PLUS):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_PLUS);
-                return false;
-            }
-            return true;
-    }
-    return true;
+bool run_on_tap(uint16_t keycode, keyrecord_t *record) {
+  if (record->tap.count && record->event.pressed) {
+    tap_code16(keycode);
+    return false;
+  }
+  return true;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LC_PLUS:
+      return run_on_tap(KC_PLUS, record);
+    case RG_UNDS:
+      return run_on_tap(KC_UNDS, record);
+    //Left Home Row
+    case LG_LT:
+      return run_on_tap(KC_LT, record);
+    case LA_LBRC:
+      return run_on_tap(KC_LBRC, record);
+    case LC_LPRN:
+      return run_on_tap(KC_LPRN, record);
+    case LS_LCBR:
+      return run_on_tap(KC_LCBR, record);
+    //Right Home Row
+    case RS_RCBR:
+      return run_on_tap(KC_RCBR, record);
+    case RC_RPRN:
+      return run_on_tap(KC_RPRN, record);
+    case LA_RBRC:
+      return run_on_tap(KC_RBRC, record);
+    case RG_GT:
+      return run_on_tap(KC_GT, record);
+  }
+  return true;
+}
+
