@@ -84,6 +84,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case LCTL_T(KC_D):
     case RCTL_T(KC_K):
     case RCTL_T(KC_5):
+    case LG_SCLN:
     case LC_PLUS:
     case LC_LPRN:
     case RC_RPRN:
