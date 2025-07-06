@@ -17,13 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+//Left Home Rows
+#define LG_SCLN LGUI_T(KC_SCLN)
 #define LC_PLUS LCTL_T(KC_PLUS)
 #define RG_UNDS RGUI_T(KC_UNDS)
-//Left Home Row
+
 #define LG_LT LGUI_T(KC_LT)
 #define LA_LBRC LALT_T(KC_LBRC)
 #define LC_LPRN LCTL_T(KC_LPRN)
 #define LS_LCBR LSFT_T(KC_LCBR)
+
 //Right Home Row
 #define RS_RCBR RSFT_T(KC_RCBR)
 #define RC_RPRN RCTL_T(KC_RPRN)
@@ -39,12 +42,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_split_3x6_3_ex2(
     KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RG_UNDS, KC_TRNS, 
+    KC_TRNS, LG_SCLN, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RG_UNDS, KC_TRNS, A
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS,
     KC_NO, KC_TRNS, KC_NO,                                                              KC_COMM, LT(3,KC_0), KC_DOT
   ),
   [2] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
+    KC_TRNS, KC_NO, KC_BSLS, KC_NO, KC_NO, KC_NO, KC_NO,                                KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
     KC_TRNS, LG_LT, LA_LBRC, LC_LPRN, LS_LCBR, KC_NO, KC_NO,                            KC_NO, KC_NO, RS_RCBR, RC_RPRN, LA_RBRC, RG_GT, KC_PIPE, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLS, KC_TRNS, 
     KC_TRNS, MO(3), KC_TRNS,                                                            KC_TRNS, KC_TRNS, KC_TRNS
@@ -62,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_TRNS, KC_TRNS, KC_TRNS
   ),
   [5] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_AMPR, KC_ASTR, KC_PIPE, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_NO, KC_DLR, KC_PERC, KC_CIRC, KC_UNDS, KC_TRNS, 
+    KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_AMPR, KC_ASTR, KC_PIPE, KC_NO, KC_TRNS, 
+    KC_TRNS, LG_SCLN, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, KC_DLR, KC_PERC, KC_CIRC, KC_UNDS, KC_TRNS, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_EXLM, KC_AT, KC_HASH, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_MINS, KC_EQL, KC_PLUS
+    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_TRNS, KC_TRNS, KC_TRNS
   ),
 };
 
@@ -77,14 +80,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case LSFT_T(KC_EQL):
     case LS_LCBR:
     case RS_RCBR:
-      return TAPPING_TERM - 100;
+      return TAPPING_TERM - 70;
     case LCTL_T(KC_D):
     case RCTL_T(KC_K):
     case RCTL_T(KC_5):
     case LC_PLUS:
     case LC_LPRN:
     case RC_RPRN:
-      return TAPPING_TERM - 50;
+      return TAPPING_TERM - 40;
         default:
           return TAPPING_TERM;
   }
@@ -100,11 +103,14 @@ bool run_on_tap(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    //Left Home Row
+    case LG_SCLN:
+      return run_on_tap(KC_COLN, record)
     case LC_PLUS:
       return run_on_tap(KC_PLUS, record);
     case RG_UNDS:
       return run_on_tap(KC_UNDS, record);
-    //Left Home Row
+
     case LG_LT:
       return run_on_tap(KC_LT, record);
     case LA_LBRC:
