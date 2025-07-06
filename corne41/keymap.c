@@ -17,54 +17,133 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+//Left Home Rows
+#define LG_COLN LGUI_T(KC_SCLN)
+#define LC_PLUS LCTL_T(KC_PLUS)
+
+#define LG_LT LGUI_T(KC_LT)
+#define LA_LBRC LALT_T(KC_LBRC)
+#define LC_LPRN LCTL_T(KC_LPRN)
+#define LS_LCBR LSFT_T(KC_LCBR)
+
+//Right Home Row
+//LALT is correct, no RALT in Home Row Mods
+#define RS_RCBR RSFT_T(KC_RCBR)
+#define RC_RPRN RCTL_T(KC_RPRN)
+#define LA_RBRC LALT_T(KC_RBRC)
+#define RG_GT RGUI_T(KC_GT)
+
+#define RS_DLR RSFT_T(KC_DLR)
+#define RC_PERC RCTL_T(KC_PERC)
+#define LA_CIRC LALT_T(KC_CIRC) 
+#define RG_UNDS RGUI_T(KC_UNDS)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3_ex2(
-    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, DT_PRNT,                                     DT_UP, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, 
-    KC_ESC, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_NO,        DT_DOWN, KC_H, RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
-    KC_GRV, KC_Z, KC_X, KC_C, KC_V, KC_B,                                                      KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_DEL, 
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, DT_PRNT,                                      DT_UP, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
+    KC_ESC, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_PSCR,      DT_DOWN, KC_H, RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
+    KC_GRV, KC_Z, KC_X, KC_C, KC_V, KC_B,                                                      KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_DEL,
     MO(5), LT(1,KC_SPC), MO(4),                                                         KC_ENT, MO(2), KC_RALT
   ),
   [1] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_NO, KC_4, KC_5, KC_6, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_1, KC_2, KC_3, KC_NO, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_TRNS, LT(3,KC_0), KC_TRNS
+    KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS,
+    KC_TRNS, LG_COLN, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, RSFT_T(KC_4), RCTL_T(KC_5), LALT_T(KC_6), RG_UNDS, KC_PIPE,
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS,
+    KC_NO, KC_TRNS, KC_NO,                                                              KC_COMM, LT(3,KC_0), KC_DOT
   ),
   [2] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
-    KC_TRNS, KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, KC_NO, KC_NO,                            KC_NO, KC_NO, KC_RCBR, KC_RPRN, KC_RBRC, KC_GT, KC_PIPE, 
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLS, KC_TRNS, 
-    KC_TRNS, MO(3), KC_TRNS,                                                            KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                                KC_NO, KC_NO, KC_APP, KC_NO, KC_NO, KC_NO, KC_TRNS,
+    KC_TRNS, LG_LT, LA_LBRC, LC_LPRN, LS_LCBR, KC_NO, KC_NO,                            KC_NO, KC_NO, RS_RCBR, RC_RPRN, LA_RBRC, RG_GT, KC_PIPE,
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,
+    KC_TRNS, MO(3), KC_TRNS,                                                            KC_NO, KC_TRNS, KC_NO
   ),
   [3] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_F7, KC_F8, KC_F9, KC_F12, KC_TRNS, 
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_NO, KC_F4, KC_F5, KC_F6, KC_F11, KC_TRNS, 
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_F1, KC_F2, KC_F3, KC_F10, KC_TRNS, 
-    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_F7, KC_F8, KC_F9, KC_F12, KC_TRNS,
+    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_NO, KC_F4, KC_F5, KC_F6, KC_F11, KC_TRNS,
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_F1, KC_F2, KC_F3, KC_F10, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_NO, KC_TRNS, KC_NO
   ),
   [4] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_PGDN, KC_PGUP, KC_NO, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_HOME, KC_END, KC_NO, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_PGDN, KC_PGUP, KC_NO, KC_NO, KC_TRNS,
+    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_TRNS,
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_HOME, KC_END, KC_NO, KC_NO, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_NO, KC_TRNS, KC_NO
   ),
   [5] = LAYOUT_split_3x6_3_ex2(
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                  KC_NO, KC_NO, KC_AMPR, KC_ASTR, KC_PIPE, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO, KC_NO,                          KC_NO, KC_NO, KC_DLR, KC_PERC, KC_CIRC, KC_UNDS, KC_TRNS, 
-    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_EXLM, KC_AT, KC_HASH, KC_NO, KC_TRNS, 
-    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_MINS, KC_EQL, KC_PLUS
+    KC_TRNS, KC_NO, KC_BSLS, KC_ASTR, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_AMPR, KC_ASTR, KC_PIPE, KC_NO, KC_TRNS,
+    KC_TRNS, LG_COLN, LALT_T(KC_MINS), LC_PLUS, LSFT_T(KC_EQL), KC_NO, KC_NO,           KC_NO, KC_NO, RS_DLR, RC_PERC, LA_CIRC, RG_UNDS, KC_TRNS,
+    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                KC_NO, KC_EXLM, KC_AT, KC_HASH, KC_NO, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,                                                          KC_NO, KC_TRNS, KC_NO
   ),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-        switch (keycode) {
-				case RSFT_T(KC_J):
-                case LSFT_T(KC_F): 
-                        return TAPPING_TERM - 100;
-				case LCTL_T(KC_D):
-				case LCTL_T(KC_K):
-						return TAPPING_TERM - 50;
-                default:
-                        return TAPPING_TERM;
-}}
+  switch (keycode) {
+    case RSFT_T(KC_J):
+    case LSFT_T(KC_F): 
+    // case RSFT_T(KC_4):
+    case LSFT_T(KC_EQL):
+    case LS_LCBR:
+    case RS_RCBR:
+    case RS_DLR:
+      return TAPPING_TERM - 70;
+    case LCTL_T(KC_D):
+    case RCTL_T(KC_K):
+    // case RCTL_T(KC_5):
+    case LC_PLUS:
+    case LC_LPRN:
+    case RC_RPRN:
+    case RC_PERC:
+      return TAPPING_TERM - 40;
+    default:
+      return TAPPING_TERM;
+  }
+}
+
+bool run_on_tap(uint16_t keycode, keyrecord_t *record) {
+  if (record->tap.count && record->event.pressed) {
+    tap_code16(keycode);
+    return false;
+  }
+  return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    //Left Home Row
+    case LG_COLN:
+      return run_on_tap(KC_COLN, record);
+    case LC_PLUS:
+      return run_on_tap(KC_PLUS, record);
+
+    case LG_LT:
+      return run_on_tap(KC_LT, record);
+    case LA_LBRC:
+      return run_on_tap(KC_LBRC, record);
+    case LC_LPRN:
+      return run_on_tap(KC_LPRN, record);
+    case LS_LCBR:
+      return run_on_tap(KC_LCBR, record);
+
+    //Right Home Row
+    case RS_RCBR:
+      return run_on_tap(KC_RCBR, record);
+    case RC_RPRN:
+      return run_on_tap(KC_RPRN, record);
+    case LA_RBRC:
+      return run_on_tap(KC_RBRC, record);
+    case RG_GT:
+      return run_on_tap(KC_GT, record);
+
+    case RS_DLR:
+      return run_on_tap(KC_DLR, record);
+    case RC_PERC:
+      return run_on_tap(KC_PERC, record);
+    case LA_CIRC:
+      return run_on_tap(KC_CIRC, record);
+    case RG_UNDS:
+      return run_on_tap(KC_UNDS, record);
+  }
+  return true;
+}
 
