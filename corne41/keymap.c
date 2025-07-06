@@ -136,11 +136,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return run_on_tap(KC_GT, record);
 
     case RS_DLR:
-      return run_on_tap(KC_DLR, record);
+      if (IS_LAYER_ON(5))
+        return run_on_tap(KC_DLR, record);
+      else
+        return run_on_tap(RSFT_T(KC_4), record);
     case RC_PERC:
-      return run_on_tap(KC_PERC, record);
+      if (IS_LAYER_ON(5))
+        return run_on_tap(KC_PERC, record);
+      else
+        return run_on_tap(RSFT_T(KC_5), record);
     case LA_CIRC:
-      return run_on_tap(KC_CIRC, record);
+      if (IS_LAYER_ON(5))
+        return run_on_tap(KC_CIRC, record);
+      else
+        return run_on_tap(RSFT_T(KC_6), record);
     case RG_UNDS:
       return run_on_tap(KC_UNDS, record);
   }
