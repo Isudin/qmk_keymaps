@@ -86,7 +86,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case LS_LCBR:
     case RS_RCBR:
     case RS_DLR:
-      return TAPPING_TERM - 70;
+      return TAPPING_TERM - 60;
     case LCTL_T(KC_D):
     case RCTL_T(KC_K):
     // case RCTL_T(KC_5):
@@ -94,7 +94,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case LC_LPRN:
     case RC_RPRN:
     case RC_PERC:
-      return TAPPING_TERM - 40;
+      return TAPPING_TERM - 30;
     default:
       return TAPPING_TERM;
   }
